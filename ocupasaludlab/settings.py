@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'api.Usuario'
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,17 +77,14 @@ WSGI_APPLICATION = 'ocupasaludlab.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+import dj_database_url
+import os
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ocupasaludlab',
-        'USER': 'postgres',
-        'PASSWORD': 'santiocupa',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 # Password validation

@@ -11,7 +11,7 @@ const Login = () => {
 
     // Aquí deberías usar tu endpoint real de login
     try {
-      const response = await fetch("https://TU_BACKEND_URL/api/token/", {
+      const response = await fetch("https://ocupasaludlab-backend.onrender.com/api/token/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

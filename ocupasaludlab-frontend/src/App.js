@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
 import NuevoPaciente from "./pages/NuevoPaciente";
@@ -18,6 +19,7 @@ function App() {
         {/* Ruta pública */}
         <Route path="/" element={<Dashboard />} />
         {/* Rutas privadas dentro del layout */}
+        <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />

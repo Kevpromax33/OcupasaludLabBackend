@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://tu-frontend-en-render.onrender.com"
+    "https://ocupasaludlab-frontend.onrender.com"
 ]
 
 REST_FRAMEWORK = {

@@ -1,24 +1,25 @@
+// src/components/MainLayout.js
 import React from "react";
-import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      {/* Sidebar */}
-      <aside style={{ width: "220px", backgroundColor: "#1E3A8A", color: "white", padding: "1rem" }}>
-        <h2 style={{ marginBottom: "1rem" }}>OcupasaludLab</h2>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          <li><a href="/dashboard" style={{ color: "white", textDecoration: "none" }}>Dashboard</a></li>
-          <li><a href="/nuevo-paciente" style={{ color: "white", textDecoration: "none" }}>Nuevo Paciente</a></li>
-          <li><a href="/fichas" style={{ color: "white", textDecoration: "none" }}>Fichas</a></li>
-          <li><a href="/configuracion" style={{ color: "white", textDecoration: "none" }}>Configuración</a></li>
-        </ul>
-      </aside>
+    <div className="flex h-screen">
+      {/* Sidebar (íconos verticales) */}
+      <Sidebar />
 
-      {/* Contenido principal */}
-      <main style={{ flexGrow: 1, padding: "2rem" }}>
-        <Outlet />
-      </main>
+      {/* Contenido general */}
+      <div className="flex-1 flex flex-col">
+        {/* Franja azul superior con solo logo */}
+        <header className="bg-blue-900 text-white px-6 py-4 shadow flex items-center">
+          <div className="text-2xl font-bold">OL</div> {/* Aquí puedes poner un logo luego */}
+        </header>
+
+        {/* Contenido de la página */}
+        <main className="p-6 overflow-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };

@@ -1,14 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
 
 const MainLayout = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const handleLogout = () => {
-    localStorage.removeItem("access"); // o el nombre de tu token
+  const handleLogout = () => {
+    localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     navigate("/login");
   };
@@ -18,8 +16,8 @@ const handleLogout = () => {
       {/* Sidebar */}
       <div className="w-64 bg-white border-r flex flex-col justify-between">
         <div className="p-4 space-y-2">
-          <Link to="/" className="block">Inicio</Link>
-          <Link to="/paciente" className="block">Nuevo paciente</Link>
+          <Link to="/dashboard" className="block">Inicio</Link>
+          <Link to="/nuevo-paciente" className="block">Nuevo paciente</Link>
           <Link to="/fichas" className="block">Fichas</Link>
           <Link to="/configuracion" className="block">Configuración</Link>
         </div>

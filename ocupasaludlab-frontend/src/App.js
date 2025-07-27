@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Paciente from "./pages/Paciente";
@@ -7,7 +7,6 @@ import FichaDetalle from "./pages/FichaDetalle";
 import NuevaFicha from "./pages/NuevaFicha";
 import NuevoPaciente from "./pages/NuevoPaciente";
 import Configuracion from "./pages/Configuracion";
-import Home from "./pages/Home";
 
 import PrivateRoute from "./components/PrivateRoute";
 import MainLayout from "./components/MainLayout";
@@ -29,12 +28,14 @@ function App() {
             <Route path="/fichas/nueva" element={<NuevaFicha />} />
             <Route path="/nuevo-paciente" element={<NuevoPaciente />} />
             <Route path="/configuracion" element={<Configuracion />} />
-            <Route path="/" element={<Home />} />
+
+            {/* Redirige "/" hacia el dashboard */}
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Route>
         </Route>
 
-        {/* Redirección por defecto: si no hay ruta, manda al login */}
-        <Route path="*" element={<Login />} />
+        {/* Si no encuentra ruta, manda al login */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );

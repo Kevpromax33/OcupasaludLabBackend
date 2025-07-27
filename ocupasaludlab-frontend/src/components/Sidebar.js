@@ -5,26 +5,23 @@ import { Home, UserPlus, FileText, Settings } from "lucide-react";
 
 const Sidebar = () => {
   const linkStyle =
-    "flex items-center gap-3 p-3 rounded hover:bg-blue-100 transition text-white";
+    "flex items-center gap-3 p-3 rounded hover:bg-blue-100 transition";
 
   return (
-    <aside className="w-20 bg-blue-900 h-screen flex flex-col items-center py-4">
-      {/* Logo o ícono */}
-      <div className="text-white text-2xl font-extrabold mb-6">OL</div>
-
-      {/* Menú */}
-      <nav className="flex flex-col items-center space-y-6 mt-4">
+    <aside className="w-64 bg-white shadow-md">
+      <div className="p-6 font-bold text-xl border-b">OcupasaludLab</div>
+      <nav className="flex flex-col p-4 space-y-2">
         <NavLink to="/" className={linkStyle}>
-          <Home size={24} />
+          <Home size={20} /> Inicio
         </NavLink>
         <NavLink to="/nuevo-paciente" className={linkStyle}>
-          <UserPlus size={24} />
+          <UserPlus size={20} /> Nuevo paciente
         </NavLink>
         <NavLink to="/fichas" className={linkStyle}>
-          <FileText size={24} />
+          <FileText size={20} /> Fichas
         </NavLink>
         <NavLink to="/configuracion" className={linkStyle}>
-          <Settings size={24} />
+          <Settings size={20} /> Configuración
         </NavLink>
       </nav>
     </aside>

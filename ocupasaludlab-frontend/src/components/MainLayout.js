@@ -1,7 +1,8 @@
 import React from "react";
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 import { LogOut } from "lucide-react";
-
+import { useNavigate, Link } from "react-router-dom";
 
 const MainLayout = () => {
 const navigate = useNavigate();

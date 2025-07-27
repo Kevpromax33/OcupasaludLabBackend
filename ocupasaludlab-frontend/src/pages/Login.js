@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [dni, setDni] = useState("");
+  const [username, setUsername] = useState(""); // Cambiado de dni a username
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
 
     try {
       const response = await fetch("https://ocupasaludlab-backend.onrender.com/api/token/", {
@@ -16,7 +15,7 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username: dni, password }),
+        body: JSON.stringify({ username, password }), // Aquí también
       });
 
       if (!response.ok) {
@@ -37,9 +36,9 @@ const Login = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
         <input
           type="text"
-          placeholder="DNI"
-          value={dni}
-          onChange={(e) => setDni(e.target.value)}
+          placeholder="Usuario"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)} // Aquí también
           className="w-full mb-4 px-4 py-2 border rounded"
           required
         />

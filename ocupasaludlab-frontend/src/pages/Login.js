@@ -9,7 +9,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Aquí deberías usar tu endpoint real de login
+
     try {
       const response = await fetch("https://ocupasaludlab-backend.onrender.com/api/token/", {
         method: "POST",

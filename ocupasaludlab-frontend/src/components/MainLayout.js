@@ -1,40 +1,40 @@
-import React from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import React, { useEffect, useRef, useCallback } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const MainLayout = () => {
   const navigate = useNavigate();
+  const timerRef = useRef(null);
 
-  const handleLogout = () => {
+  // función para cerrar sesión
+  const logout = useCallback(() => {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     navigate("/login");
-  };
+  }, [navigate]);
+
+  // reinicia el temporizador al detectar actividad
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    // 30 minutos = 1800000 ms
+    timerRef.current = setTimeout(logout, 30 * 60 * 1000);
+  }, [logout]);
+
+  useEffect(() => {
+    const events = ["mousemove", "keydown", "click", "scroll"];
+    events.forEach((event) => window.addEventListener(event, resetTimer));
+
+    resetTimer(); // inicia el temporizador al montar el layout
+
+    return () => {
+      events.forEach((event) => window.removeEventListener(event, resetTimer));
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [resetTimer]);
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="w-64 bg-white border-r flex flex-col justify-between">
-        <div className="p-4 space-y-2">
-          <Link to="/dashboard" className="block">Inicio</Link>
-          <Link to="/nuevo-paciente" className="block">Nuevo paciente</Link>
-          <Link to="/fichas" className="block">Fichas</Link>
-          <Link to="/configuracion" className="block">Configuración</Link>
-        </div>
-
-        {/* Botón Cerrar sesión */}
-        <div className="p-4">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 text-red-600 hover:text-red-800"
-          >
-            <LogOut size={18} />
-            Cerrar sesión
-          </button>
-        </div>
-      </div>
-
-      {/* Contenido principal */}
+      <Sidebar />
       <div className="flex-1 bg-gray-100 p-6 overflow-y-auto">
         <Outlet />
       </div>

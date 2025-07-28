@@ -1,41 +1,56 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Users, FileText, Calendar } from "lucide-react";
 
 function Dashboard() {
-  // Lista simulada de pacientes
-  const pacientes = [
-    { id: "12345678", nombre: "Juan Pérez" },
-    { id: "87654321", nombre: "Ana García" },
-  ];
+  // Datos simulados (luego se conectará al backend)
+  const pacientesAtendidos = 124;
+  const fichasRealizadas = 87;
+  const proximasCitas = 5;
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Panel Principal</h2>
-      <p>Bienvenido al sistema OcupasaludLab.</p>
-      <h1 className="text-4xl text-blue-600 font-bold">¡Bienvenido a Ocupasalud!</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6 text-blue-800">Panel de Control</h1>
 
-      <div style={{ marginTop: '2rem' }}>
-        <h3 className="text-xl font-semibold">Pacientes:</h3>
-        {pacientes.map((paciente) => (
-          <div key={paciente.id} style={{ margin: '1rem 0' }}>
-            <span className="text-lg">{paciente.nombre} - {paciente.id}</span>
-            <Link to={`/paciente/${paciente.id}`}>
-              <button
-                style={{
-                  marginLeft: '10px',
-                  padding: '0.5rem 1rem',
-                  backgroundColor: '#2563EB',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer'
-                }}
-              >
-                Ver paciente
-              </button>
-            </Link>
+      {/* Tarjetas de estadísticas */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white p-6 rounded-xl shadow flex items-center gap-4">
+          <Users size={40} className="text-blue-600" />
+          <div>
+            <p className="text-gray-600">Pacientes atendidos</p>
+            <h2 className="text-3xl font-bold">{pacientesAtendidos}</h2>
           </div>
-        ))}
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow flex items-center gap-4">
+          <FileText size={40} className="text-green-600" />
+          <div>
+            <p className="text-gray-600">Fichas realizadas</p>
+            <h2 className="text-3xl font-bold">{fichasRealizadas}</h2>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow flex items-center gap-4">
+          <Calendar size={40} className="text-purple-600" />
+          <div>
+            <p className="text-gray-600">Próximas citas</p>
+            <h2 className="text-3xl font-bold">{proximasCitas}</h2>
+          </div>
+        </div>
+      </div>
+
+      {/* Lista de pacientes (ejemplo) */}
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Últimos pacientes</h2>
+        <ul className="bg-white p-4 rounded-xl shadow divide-y">
+          <li className="py-2 flex justify-between">
+            <span>Juan Pérez</span>
+            <span className="text-gray-500">DNI: 12345678</span>
+          </li>
+          <li className="py-2 flex justify-between">
+            <span>Ana García</span>
+            <span className="text-gray-500">DNI: 87654321</span>
+          </li>
+        </ul>
       </div>
     </div>
   );

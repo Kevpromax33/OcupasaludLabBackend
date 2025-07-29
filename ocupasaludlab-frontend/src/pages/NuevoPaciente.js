@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api"; // importa tu api.js
 
 function NuevoPaciente() {
   const [formData, setFormData] = useState({
     dni: "",
     nombres: "",
     apellidos: "",
-    fechaNacimiento: "",
+    fecha_nacimiento: "",
     genero: "",
     telefono: "",
     direccion: "",
@@ -26,12 +26,18 @@ function NuevoPaciente() {
 
     try {
       const token = localStorage.getItem("access");
-      const response = await axios.post(
-        "https://ocupasaludlab-backend.onrender.com/api/pacientes/",
+      if (!token) {
+        setMensaje("❌ No hay sesión activa, inicia sesión nuevamente.");
+        return;
+      }
+
+      const response = await api.post(
+        "pacientes/", 
         formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -42,15 +48,20 @@ function NuevoPaciente() {
           dni: "",
           nombres: "",
           apellidos: "",
-          fechaNacimiento: "",
+          fecha_nacimiento: "",
           genero: "",
           telefono: "",
           direccion: "",
         });
       }
     } catch (error) {
-      console.error("Error al guardar el paciente:", error);
-      setMensaje("❌ Hubo un error al guardar el paciente.");
+      if (error.response) {
+        console.error("Detalles del error:", error.response.data);
+        setMensaje(`❌ Error: ${JSON.stringify(error.response.data)}`);
+      } else {
+        console.error("Error sin respuesta:", error.message);
+        setMensaje("❌ No se pudo conectar con el servidor.");
+      }
     }
   };
 
@@ -101,8 +112,8 @@ function NuevoPaciente() {
           <label className="block text-gray-700">Fecha de Nacimiento</label>
           <input
             type="date"
-            name="fechaNacimiento"
-            value={formData.fechaNacimiento}
+            name="fecha_nacimiento"
+            value={formData.fecha_nacimiento}
             onChange={handleChange}
             className="w-full border rounded px-3 py-2"
             required
